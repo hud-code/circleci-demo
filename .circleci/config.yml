@@ -21,7 +21,7 @@ jobs:
 workflows:
   conditional-workflow:
     when:
-      - equal: [master, << pipeline.git.branch >>]
+      equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - build
       - test:
