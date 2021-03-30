@@ -12,7 +12,7 @@ jobs:
           equal: [master, << pipeline.git.branch >>]
         steps:
           - run: python3 main.py
-        - run: echo << pipeline.git.branch >>
+      - run: echo << pipeline.git.branch >>
       
   test:
     working_directory: ~/circleci-python
