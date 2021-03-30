@@ -20,8 +20,8 @@ def TestMult():
         print("Multiply Function works correctly")
 
 def TestDiv():
-        assert Divide(5,5) == 25
-        assert Divide(10,3) == 30
+        assert Divide(5,5) == 1
+        assert Divide(12,3) == 4
         assert Divide(30,0) == None
         print("Divide Function works correctly")
 
