@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run: python3 main.py
-      - run: echo "test"
+      - run: echo "test in none-master"
       
   test:
     working_directory: ~/circleci-python
@@ -27,18 +27,3 @@ workflows:
       - test:
           requires:
             - build
-
-
-
-
-
-
-  # build_and_test:
-  #   jobs:
-  #     # - when:
-  #     #   condition: 
-  #     #     equal: [master, << pipeline.git.branch >>]
-  #       - build
-  #       - test:
-  #           requires:
-  #             - build
