@@ -19,7 +19,12 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - build
-      - test:
-          requires:
+      when: 
+        condition:
+          equal: [master, <<pipeline.git.branch>>]
+          steps:
+            run:
             - build
+            - test:
+                requires:
+                  - build
