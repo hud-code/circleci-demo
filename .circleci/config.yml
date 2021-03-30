@@ -25,7 +25,7 @@ workflows:
         condition: 
           equal: [master, << pipeline.git.branch >>]
         steps:
-          build
-          test:
-            requires:
-              build
+          - build
+          - test:
+              requires:
+                - build
