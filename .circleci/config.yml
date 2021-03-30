@@ -21,9 +21,9 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      # - when:
-      #   condition: 
-      #     equal: [master, << pipeline.git.branch >>]
+      - when:
+        condition: 
+          equal: [master, << pipeline.git.branch >>]
         - build
         - test:
             requires:
