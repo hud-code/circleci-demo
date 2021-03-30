@@ -9,8 +9,11 @@ jobs:
       - checkout
       - when:
         conditional: 
-          equal: [master, <<pipeline.git.branch>>]
-      - run: python3 main.py
+          equal: [master, << pipeline.git.branch >>]
+        steps:
+          - run: python3 main.py
+        - run: echo << pipeline.git.branch >>
+      
   test:
     working_directory: ~/circleci-python
     docker:
