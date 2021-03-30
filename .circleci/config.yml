@@ -7,11 +7,7 @@ jobs:
       - image: "circleci/python:3.6.4"
     steps:
       - checkout
-      - when:
-        conditional: 
-          equal: [master, << pipeline.git.branch >>]
-        steps:
-          - run: python3 main.py
+      - run: python3 main.py
       - run: echo << pipeline.git.branch >>
       
   test:
@@ -25,7 +21,11 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - build
-      - test:
+      - when:
+        conditional: 
+          equal: [master, << pipeline.git.branch >>]
+      - steps:
+          build
+        - test:
           requires:
             - build
