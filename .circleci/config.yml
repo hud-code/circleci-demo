@@ -31,10 +31,9 @@ jobs:
       # - run: python3 main-test.py
       - run:
           command: |
-              echo(pipenv run python main-test.py test)
               pipenv run python main-test.py test
       - store_test_results:
-          path: test-results
+          path: test
 
 workflows:
   build_and_test:
