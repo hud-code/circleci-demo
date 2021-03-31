@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:  # ensure this step occurs *before* installing dependencies
-          key: -v2-{{ checksum "requirements/dev.txt" }}
+          key: -v2-{{ checksum "Pipfile.lock" }}
       - run: 
           command: |
             python3 -m venv venv
@@ -17,7 +17,9 @@ jobs:
       - run: python3 main.py
       - run: echo "testing caching test"
       - save_cache:
-          key: -v3-{{ checksum "requirements/dev.txt" }}
+          key: -v2-{{ checksum "Pipfile.lock" }}
+          paths:
+            - "venv"
       
   test:
     working_directory: ~/circleci-python
