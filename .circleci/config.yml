@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/circleci-python
+    #working_directory: ~/circleci-python
     docker:
       - image: "circleci/python:3.6.4"
     steps:
@@ -34,7 +34,7 @@ jobs:
       - run:
           command: |
             echo $(circleci tests glob "./**/main-test*py")
-            python3 circleci tests glob "./**/main-test*py"
+            circleci tests glob "./**/main-test*py"
 
 
 
