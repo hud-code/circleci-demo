@@ -24,7 +24,7 @@ jobs:
       - run: echo "testing caching test 3"
       
   test:
-    #working_directory: ~/circleci-demo
+    working_directory: ~/circleci-demo/tests
     docker:
       - image: "circleci/python:3.6.4"
     # parallelism: 1
