@@ -1,8 +1,5 @@
 # Import the Add function, and assert that it works correctly.
-from main import Add
-from main import Subtract
-from main import Multiply
-from main import Divide
+import classes.calculator
 
 def TestAdd():
         assert Add(2,3) == 5
