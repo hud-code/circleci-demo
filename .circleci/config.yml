@@ -33,7 +33,7 @@ jobs:
       - checkout
       - run:
           command: |
-            echo $(circleci tests glob "/**/*")
+            echo $(circleci tests glob "./**/*")
 
 
 
