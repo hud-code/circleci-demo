@@ -23,7 +23,7 @@ jobs:
       - run: echo "test 3"
       
   test:
-    working_directory: ~/circleci-python
+    # working_directory: ~/circleci-python
     docker:
       - image: "circleci/python:3.9"
     steps:
