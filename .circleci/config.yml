@@ -20,7 +20,7 @@ jobs:
           paths:
             - "venv"
       - run: python3 main.py
-      - run: echo "test"
+      - run: echo "test 2"
       
   test:
     working_directory: ~/circleci-python
