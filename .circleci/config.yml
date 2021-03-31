@@ -28,7 +28,7 @@ jobs:
     working_directory: ~/circleci-python
     docker:
       - image: "circleci/python:3.6.4"
-    parallelism: 4
+    parallelism: 1
     steps:
       - checkout
       - run:
