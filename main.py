@@ -13,6 +13,9 @@ def Divide(a, b):
         else:
                 return None
 
+def Square(a):
+        return a * a
+
 
 def SayHello():
         print("Hello World!")
