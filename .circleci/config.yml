@@ -36,7 +36,7 @@ jobs:
       - run:
           command: |
             echo $(circleci tests glob "./**/main-test*py")
-            circleci tests glob "./**/main-test*py" | circleci tests split
+            circleci tests glob "./**/main-test*py" | circleci tests split --split-by=timings
 
 workflows:
   build_and_test:
