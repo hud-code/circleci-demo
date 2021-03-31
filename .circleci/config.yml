@@ -22,8 +22,7 @@ jobs:
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - ~/.local
-            - ~/.cache
+            - ".git"
       
   test:
     working_directory: ~/circleci-python
