@@ -31,6 +31,7 @@ jobs:
       - run: python3 main-test.py
 
 workflows:
+  build_and_test:
   # conditional-workflow:
   #   when:
   #     equal: [ master, << pipeline.git.branch >> ]
