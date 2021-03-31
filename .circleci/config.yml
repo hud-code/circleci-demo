@@ -34,9 +34,11 @@ jobs:
     steps:
       - checkout
       - run:
-          command: |
-            echo $(circleci tests glob "./**/main-test*py")
-            circleci tests glob "./**/main-test*py" | circleci tests split --split-by=timings
+          python3 main-test.py
+          # command: |
+          #    echo $(circleci tests glob "./**/main-test*py")
+          #    circleci tests glob "./**/main-test*py" | circleci tests split --split-by=timings
+
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
 
