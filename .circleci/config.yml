@@ -29,7 +29,7 @@ jobs:
     steps:
       - checkout
       # - run: python3 main-test.py
-      command: |
+      - command: |
           pipenv run python main-test.py test
       - store_test_results:
           path: test-results
