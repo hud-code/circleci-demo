@@ -18,7 +18,7 @@ jobs:
             sudo pip install pipenv
             pipenv install
       - run: python3 main.py
-      - run: echo "testing caching again"
+      - run: echo "testing caching "
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
