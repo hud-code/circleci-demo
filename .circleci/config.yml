@@ -31,7 +31,7 @@ jobs:
     steps:
       - checkout
       - run:
-          python3 ./tests/main-test.py
+          python3 main-test.py
           # command: |
           #    echo $(circleci tests glob "./**/main-test*py")
           #    circleci tests glob "./**/main-test*py" | circleci tests split --split-by=timings
