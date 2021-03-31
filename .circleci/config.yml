@@ -34,7 +34,7 @@ jobs:
       - run:
           command: |
             echo $(circleci tests glob "./**/main-test*py")
-            circleci tests glob "./**/main-test*py"
+            python3 tests glob "./**/main-test*py"
 
 
 
