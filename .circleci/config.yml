@@ -10,17 +10,17 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:  # ensure this step occurs *before* installing dependencies
-          key: deps1-{{ .Branch }}-{{ checksum ".venv/Pipfile.lock" }}
+          key: deps2-{{ .Branch }}-{{ checksum ".venv/Pipfile.lock" }}
       - run:
           command: |
             sudo pip install pipenv
             pipenv install
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: deps2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
+            - ".venv/"
+            - "/usr/local/bin/"
+            - "/usr/local/lib/python3.6/site-packages/"
       - run: python3 main.py
       - run: echo "testing caching test 2"
       
