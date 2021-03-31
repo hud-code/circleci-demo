@@ -22,7 +22,7 @@ jobs:
             - "/usr/local/bin/"
             - "/usr/local/lib/python3.6/site-packages/"
       - run: python3 main.py
-      - run: echo "testing caching test 2"
+      - run: echo "testing caching test 3"
       
   test:
     working_directory: ~/circleci-python
