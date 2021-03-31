@@ -1,90 +1,51 @@
-version: 2 # use CircleCI 2.0
-jobs: # A basic unit of work in a run
-  build: # runs not using Workflows must have a `build` job as entry point 
-    # directory where steps are run
-    working_directory: ~/circleci-demo
-    docker: # run the steps with Docker
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.6.4
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+version: 2.1
+jobs:
+  build:
+    #working_directory: ~/circleci-demo
+    docker:
+      - image: "circleci/python:3.6.4"
         environment: # environment variables for primary container
-          PIPENV_VENV_IN_PROJECT: true
-    steps: # steps that comprise the `build` job
-      - checkout # check out source code to working directory
-      - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
-      - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout
+      - restore_cache:  # ensure this step occurs *before* installing dependencies
+          key: deps3-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: |
             sudo pip install pipenv
             pipenv install
-      - save_cache: # cache Python dependencies using checksum of Pipfile as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - save_cache:
+          key: deps3-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - "venv"
+            - ".venv/"
+            - "/usr/local/bin/"
+            - "/usr/local/lib/python3.6/site-packages/"
+      - run: python3 main.py
+      - run: echo "testing caching test 3"
+      
+  test:
+    #working_directory: ~/circleci-demo
+    docker:
+      - image: "circleci/python:3.6.4"
+    # parallelism: 1
+    steps:
+      - checkout
       - run:
-          command: |
-            pipenv run python main-test.py test
+          python3 main-test.py
+          # command: |
+          #    echo $(circleci tests glob "./**/main-test*py")
+          #    circleci tests glob "./**/main-test*py" | circleci tests split --split-by=timings
+
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
-      - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: test-results
-          destination: tr1
 
-# version: 2.1
-# jobs:
-#   build:
-#     #working_directory: ~/circleci-demo
-#     docker:
-#       - image: "circleci/python:3.6.4"
-#         environment: # environment variables for primary container
-#             PIPENV_VENV_IN_PROJECT: true
-#     steps:
-#       - checkout
-#       - run: sudo chown -R circleci:circleci /usr/local/bin
-#       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
-#       - restore_cache:  # ensure this step occurs *before* installing dependencies
-#           key: deps3-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-#       - run:
-#           command: |
-#             sudo pip install pipenv
-#             pipenv install
-#       - save_cache:
-#           key: deps3-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-#           paths:
-#             - ".venv/"
-#             - "/usr/local/bin/"
-#             - "/usr/local/lib/python3.6/site-packages/"
-#       - run: python3 main.py
-#       - run: echo "testing caching test 3"
-      
-#   test:
-#     #working_directory: ~/circleci-demo
-#     docker:
-#       - image: "circleci/python:3.6.4"
-#     parallelism: 1
-#     steps:
-#       - checkout
-#       - run:
-#           python3 main-test.py
-#           # command: |
-#           #    echo $(circleci tests glob "./**/main-test*py")
-#           #    circleci tests glob "./**/main-test*py" | circleci tests split --split-by=timings
-
-#       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-#           path: test-results
-
-# workflows:
-#   build_and_test:
-#   # conditional-workflow:
-#   #   when:
-#   #     equal: [ master, << pipeline.git.branch >> ]
-#     jobs:
-#       - build
-#       - test:
-#           requires:
-#             - build
+workflows:
+  build_and_test:
+  # conditional-workflow:
+  #   when:
+  #     equal: [ master, << pipeline.git.branch >> ]
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
