@@ -2,9 +2,11 @@ version: 2.1
 
 jobs:
   build:
-    #working_directory: ~/circleci-python
+    working_directory: ~/circleci-demo
     docker:
       - image: "circleci/python:3.6.4"
+        environment: # environment variables for primary container
+            PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
@@ -18,28 +20,32 @@ jobs:
       - save_cache:
           key: deps2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - ".venv/"
-            - "/usr/local/bin/"
-            - "/usr/local/lib/python3.6/site-packages/"
-      - run: python3 main.py
-      - run: echo "testing caching test 3"
-      
-  test:
-    working_directory: ~/circleci-python
-    docker:
-      - image: "circleci/python:3.6.4"
-    parallelism: 1
-    steps:
-      - checkout
+            - "venv"
       - run:
           command: |
-            echo $(circleci tests glob "./**/main-test*py")
-            circleci tests glob "./**/main-test*py"
-            python3 main-test.py
-            python3 main-test-sub.py
-            python3 main-test-div.py
-            python3 main-test-mult.py
-            python3 main-test-add.py
+            pipenv run python manage.py test
+      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: test-results
+      - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: test-results
+          destination: tr1
+      
+  # test:
+  #   working_directory: ~/circleci-python
+  #   docker:
+  #     - image: "circleci/python:3.6.4"
+  #   parallelism: 1
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         command: |
+  #           echo $(circleci tests glob "./**/main-test*py")
+  #           circleci tests glob "./**/main-test*py"
+  #           python3 main-test.py
+  #           python3 main-test-sub.py
+  #           python3 main-test-div.py
+  #           python3 main-test-mult.py
+  #           python3 main-test-add.py
 
 
 
