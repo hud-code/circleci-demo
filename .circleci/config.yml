@@ -8,21 +8,16 @@ jobs:
     steps:
       - checkout
       - restore_cache:  # ensure this step occurs *before* installing dependencies
-          keys:
-            # when lock file changes, use increasingly general patterns to restore cache
-            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-v1-{{ .Branch }}-
-            - pip-packages-v1-
+          key: -v2-{{ checksum "requirements/dev.txt" }}
       - run: 
           command: |
-            sudo pip install pipenv
-            pipenv install
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - run: python3 main.py
       - run: echo "testing caching test"
       - save_cache:
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          paths:
-            - ".git"
+          key: -v3-{{ checksum "requirements/dev.txt" }}
       
   test:
     working_directory: ~/circleci-python
