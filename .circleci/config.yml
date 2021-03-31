@@ -10,7 +10,7 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:  # ensure this step occurs *before* installing dependencies
-          key: deps2-{{ .Branch }}-{{ checksum ".venv/Pipfile.lock" }}
+          key: deps2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: |
             sudo pip install pipenv
@@ -35,6 +35,11 @@ jobs:
           command: |
             echo $(circleci tests glob "./**/main-test*py")
             circleci tests glob "./**/main-test*py"
+            python3 main-test.py
+            python3 main-test-sub.py
+            python3 main-test-div.py
+            python3 main-test-mult.py
+            python3 main-test-add.py
 
 
 
