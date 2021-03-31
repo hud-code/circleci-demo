@@ -12,42 +12,31 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:  # ensure this step occurs *before* installing dependencies
-          key: deps2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: deps3-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: |
             sudo pip install pipenv
             pipenv install
       - save_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: deps3-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - "venv"
+            - ".venv/"
+            - "/usr/local/bin/"
+            - "/usr/local/lib/python3.6/site-packages/"
+      - run: python3 main.py
+      - run: echo "testing caching test 3"
+      
+  test:
+    working_directory: ~/circleci-python
+    docker:
+      - image: "circleci/python:3.6.4"
+    parallelism: 1
+    steps:
+      - checkout
       - run:
           command: |
-            pipenv run python main.py test glob "./**/main-test*py"
-      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: test-results
-      - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: test-results
-          destination: tr1
-      
-  # test:
-  #   working_directory: ~/circleci-python
-  #   docker:
-  #     - image: "circleci/python:3.6.4"
-  #   parallelism: 1
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         command: |
-  #           echo $(circleci tests glob "./**/main-test*py")
-  #           circleci tests glob "./**/main-test*py"
-  #           python3 main-test.py
-  #           python3 main-test-sub.py
-  #           python3 main-test-div.py
-  #           python3 main-test-mult.py
-  #           python3 main-test-add.py
-
-
+            echo $(circleci tests glob "./**/main-test*py")
+            circleci tests glob "./**/main-test*py" | circleci tests split
 
 workflows:
   build_and_test:
@@ -56,6 +45,6 @@ workflows:
   #     equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - build
-      # - test:
-      #     requires:
-      #       - build
+      - test:
+          requires:
+            - build
