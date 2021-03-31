@@ -7,7 +7,7 @@ from main import Divide
 def TestAdd():
         assert Add(2,3) == 5
         assert Add(2,2) == 4
-        assert Add(6,3) == 13 #ERROR HERE
+        assert Add(6,3) == 9 #ERROR HERE
         print("Add Function works correctly, with new logic! (part 3, please)")
 
 def TestSub():
