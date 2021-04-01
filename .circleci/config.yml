@@ -20,7 +20,7 @@ jobs:
           paths:
             - ""
       - run: python -m calc
-      - run: echo "test 3"
+      - run: echo "test 4"
       
   test:
     # working_directory: ~/circleci-python
