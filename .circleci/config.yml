@@ -41,6 +41,7 @@ jobs:
       - run:
           command: |
             echo $(circleci tests glob "tests/**/calc*test.py")
+            TESTFILES=$(circleci tests glob "tests/**/calc*test.py")
       # - run:
       #   command: |
       #     # get test files while ignoring __init__ files
