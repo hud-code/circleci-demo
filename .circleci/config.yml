@@ -38,6 +38,18 @@ jobs:
           command: | 
               python -m xmlrunner tests.calc_test -v
               python -m xmlrunner tests.calc_extra_test -v
+      - run:
+        command: |
+          # get test files while ignoring __init__ files
+          echo(circleci tests glob "/tests/*.py" | sed 's/\S\+__init__.py//g')
+          # TESTFILES=$(circleci tests glob "/tests/*.py" | sed 's/\S\+__init__.py//g')
+          # echo $TESTFILES | tr ' ' '\n' | sort | uniq > circleci_test_files.txt
+          # cat circleci_test_files.txt
+          # TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt)
+          # # massage filepaths into format manage.py test accepts
+          # TESTFILES=$(echo $TESTFILES | tr "/" "." | sed 's/.py//g')
+          # echo $TESTFILES
+          # pipenv run python manage.py test --verbosity=2 $TESTFILES  
       - store_test_results:
           path: ..
 
