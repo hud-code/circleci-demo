@@ -44,6 +44,7 @@ jobs:
             TESTFILES=$(circleci tests glob "tests/**/calc*test.py")
             echo $TESTFILES | tr ' ' '\n' | sort | uniq > circleci_test_files.txt
             cat circleci_test_files.txt
+            TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt)
       # - run:
       #   command: |
       #     # get test files while ignoring __init__ files
