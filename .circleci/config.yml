@@ -52,9 +52,8 @@ jobs:
             TESTFILES=$(echo $TESTFILES | tr "/" "." | sed 's/.py//g')
             echo $TESTFILES
             python -m xmlrunner $TESTFILES
+            TESTRESULTS=
       - store_test_results:
-          path: ..
-      - store_artifacts:
           path: ..
 
 workflows:
