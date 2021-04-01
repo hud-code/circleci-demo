@@ -34,7 +34,7 @@ jobs:
               pip install unittest-xml-reporting
               python -m unittest tests.calc_test -v
       - store_test_results:
-          path: test-results
+          path: ..
 
 workflows:
   build_and_test:
