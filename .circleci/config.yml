@@ -12,9 +12,12 @@ jobs:
       - run:
           name: Install Python deps in a venv
           command: |
+            echo "STARTING - INSTALLING VENV..........."
             python -m venv venv
             . venv/bin/activate
+            echo "INSTALLING ARTIFACTS..........."
             pip install artifacts
+            echo "INSTALLING REQUIREMENTS..........."
             pip install -r requirements.txt
             touch requirements.txt
             pipenv install
