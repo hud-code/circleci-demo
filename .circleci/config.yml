@@ -45,7 +45,7 @@ jobs:
             TESTFILES=$(circleci tests split circleci_test_files.txt)
             TESTFILES=$(echo $TESTFILES | tr "/" "." | sed 's/.py//g')
             echo $TESTFILES
-            # pipenv run python manage.py test --verbosity=2 $TESTFILES 
+            pipenv run python manage.py test --verbosity=2 $TESTFILES 
       # - run:
       #   command: |
       #     # get test files while ignoring __init__ files
