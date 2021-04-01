@@ -54,6 +54,8 @@ jobs:
             python -m xmlrunner $TESTFILES
       - store_test_results:
           path: ..
+      - store_artifacts:
+          path: ..
 
 workflows:
   # build_and_test:
