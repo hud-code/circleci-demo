@@ -44,7 +44,7 @@ jobs:
             TESTFILES=$(circleci tests glob "tests/**/calc*test.py")
             echo $TESTFILES | tr ' ' '\n' | sort | uniq > circleci_test_files.txt
             cat circleci_test_files.txt
-            TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt)
+            TESTFILES=$(circleci tests split circleci_test_files.txt)
             TESTFILES=$(echo $TESTFILES | tr "/" "." | sed 's/.py//g')
             echo $TESTFILES
             # pipenv run python manage.py test --verbosity=2 $TESTFILES 
