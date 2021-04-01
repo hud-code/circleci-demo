@@ -19,6 +19,8 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - ""
+      - store_artifacts:
+          path: . venv/share/artifacts
       - run: python -m calc
       - run: echo "test 4"
       
@@ -36,8 +38,6 @@ jobs:
               mkdir artifacts
       - store_test_results:
           path: ..
-      - store_artifacts:
-          path: .. artifacts
 
 workflows:
   build_and_test:
