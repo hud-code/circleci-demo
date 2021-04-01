@@ -48,26 +48,14 @@ jobs:
             TESTFILES=$(echo $TESTFILES | tr "/" "." | sed 's/.py//g')
             echo $TESTFILES
             python -m xmlrunner $TESTFILES
-      # - run:
-      #   command: |
-      #     # get test files while ignoring __init__ files
-      #     echo(circleci tests glob "/tests/*.py" | sed 's/\S\+__init__.py//g')
-      #     # TESTFILES=$(circleci tests glob "/tests/*.py" | sed 's/\S\+__init__.py//g')
-      #     # echo $TESTFILES | tr ' ' '\n' | sort | uniq > circleci_test_files.txt
-      #     # cat circleci_test_files.txt
-      #     # TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt)
-      #     # # massage filepaths into format manage.py test accepts
-      #     # TESTFILES=$(echo $TESTFILES | tr "/" "." | sed 's/.py//g')
-      #     # echo $TESTFILES
-      #     # pipenv run python manage.py test --verbosity=2 $TESTFILES  
       - store_test_results:
           path: ..
 
 workflows:
-  build_and_test:
-  # conditional-workflow:
-  #   when:
-  #     equal: [ master, << pipeline.git.branch >> ]
+  # build_and_test:
+  conditional-workflow:
+    when:
+      equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - build
       - test:
