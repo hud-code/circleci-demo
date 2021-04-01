@@ -35,11 +35,10 @@ jobs:
       - run:
           command: | 
               pip install unittest-xml-reporting
-              python -m unittest tests.calc_test -v
-              python -m unittest tests.calc_extra_test -v
-              mkdir artifacts
+              python -m xmlrunner tests.calc_test -v
+              python -m xmlrunner tests.calc_extra_test -v
       - store_test_results:
-          path: test-results
+          path: ..
 
 workflows:
   build_and_test:
