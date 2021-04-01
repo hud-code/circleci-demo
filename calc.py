@@ -37,3 +37,9 @@ class Calculator(object):
         self._last_answer = a if a <= b else b
         return self.last_answer
         print("DONE")
+
+    def SayHello():
+        print("Hello World!")
+
+    if __name__ == '__main__':
+        SayHello()
