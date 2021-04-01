@@ -41,5 +41,5 @@ class Calculator(object):
     def SayHello():
         print("Hello World!")
 
-    if __name__ == '__main__':
+    if __name__ == '__calc__':
         SayHello()
