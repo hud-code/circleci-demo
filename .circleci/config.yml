@@ -53,10 +53,10 @@ jobs:
           path: ..
 
 workflows:
-  build_and_test:
-  # conditional-workflow:
-  #   when:
-  #     equal: [ master, << pipeline.git.branch >> ]
+  # build_and_test:
+  conditional-workflow:
+    when:
+      equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - build
       - test:
