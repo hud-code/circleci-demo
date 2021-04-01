@@ -1,19 +1,12 @@
 """
 calc.py contains the Calculator class for testing examples.
 """
-
-
-def SayHelloFirst():
-    print("Hello World!")
-
-if __name__ == '__calc__':
-    SayHelloFirst()
-
+print("HELLO WORLD")
 
 class Calculator(object):
+
     def __init__(self):
         self._last_answer = 0.0
-        print("HELLO WORLD ...")
 
     @property
     def last_answer(self):
@@ -43,10 +36,3 @@ class Calculator(object):
     def minimum(self, a, b):
         self._last_answer = a if a <= b else b
         return self.last_answer
-        print("DONE")
-
-    def SayHello():
-        print("Hello World!")
-
-    if __name__ == '__calc__':
-        SayHello()
