@@ -40,7 +40,7 @@ jobs:
               python -m xmlrunner tests.calc_extra_test -v
       - run:
           command: |
-            echo $(circleci tests glob "/tests/*.py" | sed 's/\S\+__init__.py//g')
+            echo $(circleci tests glob "../**/calc*test.py"")
       # - run:
       #   command: |
       #     # get test files while ignoring __init__ files
