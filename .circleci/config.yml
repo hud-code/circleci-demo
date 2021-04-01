@@ -14,7 +14,6 @@ jobs:
           command: |
             python -m venv venv
             . venv/bin/activate
-            pip install unittest-xml-reporting
             pip install -r requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
@@ -31,9 +30,9 @@ jobs:
       - checkout
       # - run: python3 main-test.py
       - run:
-          command: |
+          command: | 
+              pip install unittest-xml-reporting
               python -m unittest tests.calc_test -v
-              python -m unittest tests.calc_extra_test -v
       - store_test_results:
           path: test-results
 
@@ -47,6 +46,10 @@ workflows:
       - test:
           requires:
             - build
+
+
+
+
 
 
 
