@@ -12,14 +12,15 @@ jobs:
       - run:
           name: Install Python deps in a venv
           command: |
-            python3 -m venv venv
+            python -m venv venv
             . venv/bin/activate
             pip freeze > requirements.txt
+            unittest freeze > requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-      - run: python3 main.py
+      - run: python src.calc.py
       - run: echo "test 3"
       
   test:
@@ -31,9 +32,10 @@ jobs:
       # - run: python3 main-test.py
       - run:
           command: |
-              pipenv run python main-test.py test
+              python -m unittest tests.calc_test -v
+              python -m unittest tests.calc_extra_test -v
       - store_test_results:
-          path: test
+          path: test-results
 
 workflows:
   build_and_test:
