@@ -56,7 +56,7 @@ workflows:
   # build_and_test:
   conditional-workflow:
     when:
-      equal: [ master, << pipeline.git.branch >> ]
+      equal: [ setup-testing, << pipeline.git.branch >> ]
     jobs:
       - build
       - test:
