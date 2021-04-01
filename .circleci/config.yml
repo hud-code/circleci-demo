@@ -39,7 +39,7 @@ jobs:
               python -m unittest tests.calc_extra_test -v
               mkdir artifacts
       - store_test_results:
-          path: ..
+          path: test-results
 
 workflows:
   build_and_test:
