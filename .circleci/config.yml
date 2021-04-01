@@ -33,8 +33,11 @@ jobs:
           command: | 
               pip install unittest-xml-reporting
               python -m unittest tests.calc_test -v
+              mkdir artifacts
       - store_test_results:
           path: ..
+      - store_artifacts:
+          path: .. artifacts
 
 workflows:
   build_and_test:
