@@ -16,14 +16,13 @@ jobs:
             . venv/bin/activate
             pip install artifacts
             pip install -r requirements.txt
+            python -m calc
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - ""
       - store_artifacts:
           path: venv/share/artifacts
-      - run: python3 -m calc
-      - run: echo "test 5"
       
   test:
     # working_directory: ~/circleci-python
