@@ -23,7 +23,7 @@ jobs:
       - store_artifacts:
           path: venv/share/artifacts
       - run: python -m calc
-      - run: echo "test 4"
+      - run: echo "test 5"
       
   test:
     # working_directory: ~/circleci-python
