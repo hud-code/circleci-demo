@@ -22,7 +22,7 @@ jobs:
             - ""
       - store_artifacts:
           path: venv/share/artifacts
-      - run: python3 -m calc.py
+      - run: python3 -m calc
       - run: echo "test 5"
       
   test:
