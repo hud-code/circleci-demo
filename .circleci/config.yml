@@ -19,7 +19,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - ""
-      - run: python calc
+      - run: python -m calc
       - run: echo "test 3"
       
   test:
