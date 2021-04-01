@@ -19,8 +19,8 @@ jobs:
             pip install artifacts
             echo "INSTALLING REQUIREMENTS..........."
             pip install -r requirements.txt
-            touch requirements.txt
-            pipenv install
+            # touch requirements.txt
+            # pipenv install
             echo "FINISHED"
       - save_cache:
           key: deps2-{{ .Branch }}-{{ checksum "requirements.txt" }}
