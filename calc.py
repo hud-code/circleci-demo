@@ -1,7 +1,6 @@
 """
 calc.py contains the Calculator class for testing examples.
 """
-print("HELLO WORLD")
 
 class Calculator(object):
 
@@ -36,3 +35,9 @@ class Calculator(object):
     def minimum(self, a, b):
         self._last_answer = a if a <= b else b
         return self.last_answer
+
+def main():
+    print("HELLO WORLD")
+
+if __name__ == '__main__':
+    main()
